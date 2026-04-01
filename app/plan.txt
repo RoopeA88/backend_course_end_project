@@ -1,0 +1,43 @@
+
+
+TOIMIJAT
+
+- pelaajat
+
+ENDPOINTIT
+
+- GET /players (Statuskoodi: 200)
+    - id
+    - name
+
+- POST /players (Statuskoodi: 201 | Error: 422)
+    - Request
+        - name
+    - Response
+        - id    (luodaan automaattisesti)
+        - name
+
+- GET /players/{id} (Statuskoodi: 200 | Error 404)
+    - Response
+        - id
+        - name
+        - events
+
+- POST /players/{id}/events(Statuskoodi: 201 | Error: tuntematon pelaaja: 404, tuntematon eventtityyppi: 400, requestissa virheellistä dataa: 422)
+    - Request
+        - type ("level_started", "level_solved") - kovakoodattu ohjelmaan
+        - detail (levelin nimi)
+    - Response
+        - id
+        - type
+        - detail
+        - timestamp
+        - player_id
+
+- GET /events (Statuskoodi: 200 | Error: tuntematon event-tyyppi Bad Request (400))
+    - Response
+        - id
+        - type
+        - detail
+        - timestamp
+        - player_id
