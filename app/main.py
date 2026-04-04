@@ -1,7 +1,14 @@
 from fastapi import FastAPI
 from .routers import players
+from contextlib import asynccontextmanager
+from .database.database import create_db
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(players.router)
 
