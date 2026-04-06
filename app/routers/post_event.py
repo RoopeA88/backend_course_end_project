@@ -1,0 +1,11 @@
+from fastapi import APIRouter, status, Depends
+from sqlmodel import Session
+from ..database.database import get_session
+from ..cruds import events_crud as crud
+from ..database.models import EventCreate, EventDb
+
+router = APIRouter(prefix="/players/{id}/events")
+
+@router.post("", status_code=status.HTTP_201_CREATED)
+def create_event(*, session: Session = Depends(get_session), event_in: EventCreate, id: int):
+    return crud.create_event(session, event_in, id)

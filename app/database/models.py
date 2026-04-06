@@ -10,18 +10,32 @@ class PlayerIn(PlayerBase):
 
 class PlayerDb(PlayerBase, table = True):
     id: int = Field(default=None, primary_key=True)
-    events : list["EventDb"] = Relationship(back_populates="player")
+    events : list["EventDb"] = Relationship(back_populates="player", sa_relationship_kwargs={"lazy": "selectin"})
+    model_config = {"from_attributes": True}
     
 class EventBase(SQLModel):
     type: str
     detail: str
     player_id: int = Field(foreign_key="playerdb.id")
     timestamp: datetime = Field(default_factory=datetime.now)
+
 class EventIn(EventBase):
     pass
 
 class EventDb(EventBase, table=True):
     id: int = Field(default=None, primary_key=True)
     player: PlayerDb = Relationship(back_populates="events")
+    
+    
+class EventCreate(SQLModel):
+    type: str
+    detail: str
+    
+class PlayerReadWithEvents(PlayerBase):
+    id: int
+    
+    events: list[EventBase] = [] 
+
+    model_config = {"from_attributes": True}
     
     

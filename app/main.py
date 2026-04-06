@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers import players, events
+from .routers import players, events, post_event
 from contextlib import asynccontextmanager
 from .database.database import create_db
 
@@ -12,4 +12,6 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(players.router)
 app.include_router(events.router)
+app.include_router(post_event.router)
+
 

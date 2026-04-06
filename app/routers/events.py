@@ -16,6 +16,6 @@ def get_all_events(*, session: Session = Depends(get_session)):
 def get_event_by_id(*, session: Session = Depends(get_session), event_id: int):
     return crud.get_event_by_id(session, event_id)
 
-@router.post("", status_code=status.HTTP_201_CREATED)
-def create_event(*, session: Session = Depends(get_session), event_in: EventIn):
-    return crud.create_event(session, event_in)
+# @router.post("", status_code=status.HTTP_201_CREATED)
+# def create_event(*, session: Session = Depends(get_session), event_in: EventIn):
+#     return crud.create_event(session, event_in)
