@@ -15,13 +15,13 @@ class PlayerDb(PlayerBase, table = True):
 class EventBase(SQLModel):
     type: str
     detail: str
-    timestamp: datetime 
-    player_id: int
-    
+    player_id: int = Field(foreign_key="playerdb.id")
+    timestamp: datetime = Field(default_factory=datetime.now)
 class EventIn(EventBase):
     pass
 
 class EventDb(EventBase, table=True):
     id: int = Field(default=None, primary_key=True)
-    player_id: int = Field(default = None, foreign_key = "playerdb.id")
     player: PlayerDb = Relationship(back_populates="events")
+    
+    
