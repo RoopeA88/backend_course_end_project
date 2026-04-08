@@ -30,9 +30,10 @@ def get_all_events(session: Session, event_type = None):
             query = query.where(EventDb.type == event_type)
     return session.exec(query).all()
 
-def get_event_by_id(session: Session, event_id: int):
-    event = session.get(EventDb, event_id)
-    if not event:
+def get_events_by_player_id(session: Session, player_id: int):
+    query = select(EventDb).where(EventDb.player_id == player_id)
+    events = session.exec(query).all()
+    if not events:
         raise HTTPException(detail="event not found", status_code=status.HTTP_404_NOT_FOUND)
     
-    return event
+    return events

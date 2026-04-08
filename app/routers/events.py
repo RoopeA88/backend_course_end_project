@@ -13,9 +13,7 @@ router = APIRouter(prefix="/events")
 def get_all_events(*, session: Session = Depends(get_session),type: Optional[str] = Query(None, description="Type of event")):
     return crud.get_all_events(session, event_type = type)
 
-@router.get("/{event_id}", response_model=EventDb)
-def get_event_by_id(*, session: Session = Depends(get_session), event_id: int):
-    return crud.get_event_by_id(session, event_id)
+
 
 # @router.post("", status_code=status.HTTP_201_CREATED)
 # def create_event(*, session: Session = Depends(get_session), event_in: EventIn):
