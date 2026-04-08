@@ -6,18 +6,18 @@ TOIMIJAT
 
 ENDPOINTIT
 
-- GET /players (Statuskoodi: 200)
+- GET /players (Statuskoodi: 200) - VALMIS
     - id
     - name
 
-- POST /players (Statuskoodi: 201 | Error: 422)
+- POST /players (Statuskoodi: 201 | Error: 422) - VALMIS
     - Request
         - name
     - Response
         - id    (luodaan automaattisesti)
         - name
 
-- GET /players/{id} (Statuskoodi: 200 | Error 404)
+- GET /players/{id} (Statuskoodi: 200 | Error 404) - VALMIS
     - Response
         - id
         - name

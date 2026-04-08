@@ -21,8 +21,14 @@ def create_event(session: Session, event_in: EventCreate, id: int):
     session.refresh(event)
     return event
 
-def get_all_events(session: Session):
-    return session.exec(select(EventDb)).all()
+def get_all_events(session: Session, event_type = None):
+    query = select(EventDb)
+    if event_type:
+        if event_type not in event_types:
+            raise HTTPException(detail = "unrecognizable event", status_code=status.HTTP_400_BAD_REQUEST)
+        else:
+            query = query.where(EventDb.type == event_type)
+    return session.exec(query).all()
 
 def get_event_by_id(session: Session, event_id: int):
     event = session.get(EventDb, event_id)
