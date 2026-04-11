@@ -14,11 +14,18 @@ class PlayerDb(PlayerBase, table = True):
     
     
 class EventBase(SQLModel):
+    
     type: str
     detail: str
     timestamp: datetime = Field(default_factory=datetime.now)
     player_id: int = Field(foreign_key="playerdb.id")
 
+class EventBaseWithId(SQLModel):
+    id: int = Field(default=None, primary_key=True)
+    type: str
+    detail: str
+    timestamp: datetime = Field(default_factory=datetime.now)
+    player_id: int = Field(foreign_key="playerdb.id")
 class EventIn(EventBase):
     pass
 
@@ -34,7 +41,7 @@ class EventCreate(SQLModel):
 class PlayerReadWithEvents(PlayerBase):
     id: int
     
-    events: list[EventBase] = [] 
+    events: list[EventBaseWithId] = [] 
 
     model_config = {"from_attributes": True}
     
