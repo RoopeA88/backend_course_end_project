@@ -12,7 +12,7 @@ router = APIRouter(prefix="/players")
 def get_all_players(*, session: Session = Depends(get_session)):
     return crud.get_all_players(session)
 
-@router.get("/{player_id}", response_model=PlayerReadWithEvents, responses={ 404: {"description": "player not found"}}, status_code=status.HTTP_200_OK)
+@router.get("/{id}", response_model=PlayerReadWithEvents, responses={ 404: {"description": "player not found"}}, status_code=status.HTTP_200_OK)
 def get_player_by_id(*, session: Session = Depends(get_session), player_id: int):
     return crud.get_player_by_id(session, player_id)
 
