@@ -13,8 +13,8 @@ def get_all_players(*, session: Session = Depends(get_session)):
     return crud.get_all_players(session)
 
 @router.get("/{id}", response_model=PlayerReadWithEvents, responses={ 404: {"description": "player not found"}}, status_code=status.HTTP_200_OK)
-def get_player_by_id(*, session: Session = Depends(get_session), player_id: int):
-    return crud.get_player_by_id(session, player_id)
+def get_player_by_id(*, session: Session = Depends(get_session), id: int):
+    return crud.get_player_by_id(session, id)
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=PlayerDb)
 def create_player(*, session: Session = Depends(get_session), player_in: PlayerIn):
